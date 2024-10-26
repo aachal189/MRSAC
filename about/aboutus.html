@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>About</title>
+    <link rel="stylesheet" href="aboutus.css">
+    <style>
+        /* Style for the image section */
+        .image-section {
+            width: 50%;
+            float: left;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Text section styling */
+        .text-section {
+            width: 50%;
+            float: right;
+        }
+
+        /* Quote styling with a box */
+        .quote {
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+            border: 2px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+  
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="logo.jfif" alt="MRSAC Logo"> <!-- Logo -->
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#home">MRSAC Overview</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        <div class="content-container">
+            <div class="image-section">
+                <img id="slideshow-image" src="mrsac-image.jpg" alt="MRSAC"> <!-- Image of MRSAC -->
+            </div>
+            <div class="text-section">
+                <h2>About MRSAC</h2>
+                <p>The Maharashtra Remote Sensing Application Centre (MRSAC) is an autonomous organization under the Department of Planning, Government of Maharashtra. We specialize in remote sensing, GIS, and spatial data infrastructure to support planning and development across Maharashtra.</p>
+                <p>Our work includes land use planning, agriculture monitoring, urban planning, and disaster management. We collaborate with government departments and institutions to provide geospatial data and analysis for informed decision-making.</p>
+                
+                <!-- Quote in a box -->
+                <p class="quote">"Empowering Maharashtra with advanced geospatial technology for sustainable development."</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 MRSAC. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for image slideshow -->
+    <script>
+        const images = ["2022-11-17 (1) (1).jpg", "2022-11-17 (2).jpg", "2024-01-30 (2) (1).jpg"]; // Add your image paths
+        let currentIndex = 0;
+
+        function changeImage() {
+            const imageElement = document.getElementById("slideshow-image");
+            currentIndex = (currentIndex + 1) % images.length; // Move to the next image and loop back
+            imageElement.src = images[currentIndex]; // Update the image source
+        }
+
+        // Change image every 2 seconds
+        setInterval(changeImage, 2000);
+    </script>
+    
+</body>
+</html>

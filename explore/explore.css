@@ -1,0 +1,209 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header and Navbar */
+header {
+    background-color: #ffffff;  /* White background */
+    color: black;  /* Black font color */
+    height: 80px;  /* Fixed height for navigation bar */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Add padding for spacing */
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+
+}
+
+header .logo img {
+    width: 70px;  /* Adjusted logo size */
+    height: auto;
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;  /* Align links to the right */
+    align-items: center;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+header nav ul li {
+    margin: 0 20px;
+    margin-right: 90px;
+    padding-left: 30px;
+   font-weight: bold;
+}
+
+header nav ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hamburger Menu for Mobile */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    header nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: white;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        border-left: 1px solid black;
+    }
+
+    header nav.active ul {
+        display: flex;
+    }
+
+    header nav ul li {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .menu-icon{
+        display: block;
+        margin-left: 200px;
+    }
+}
+
+/* Intro Section */
+.intro {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.slideshow {
+    width: 100%;
+    height: 500px; /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.slideshow img {
+    width: 100%;
+    max-width: 1000px; /* Limit the width */
+    height: auto;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
+
+.intro-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+}
+
+.intro-text h2 {
+    font-size: 36px;
+}
+
+.intro-text p {
+    font-size: 18px;
+}
+
+/* Timeline Section */
+.timeline-section {
+    padding: 50px 20px;
+    background-color: #2a2a2a;
+    color: white;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.timeline-item {
+    margin-bottom: 50px;
+    border-left: 4px solid #ff9900;
+    padding-left: 20px;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 1s ease;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff9900;
+    border-radius: 50%;
+    top: 10px;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.decade {
+    background-color: #ff9900;
+    color: #2a2a2a;
+    padding: 5px 10px;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.event {
+    background-color: #333;
+    padding: 20px;
+    margin-top: 10px;
+    border-left: 5px solid #ff9900;
+}
+
+.event p {
+    margin: 0;
+}
+
+/* Footer */
+footer {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}

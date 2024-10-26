@@ -1,0 +1,252 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Header Section */
+header {
+    background-color: #ffffff;  /* White background */
+    color: black;  /* Black font color */
+    height: 80px;  /* Fixed height for navigation bar */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Add padding for spacing */
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+
+}
+
+header .logo img {
+    width: 70px;  /* Adjusted logo size */
+    height: auto;
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;  /* Align links to the right */
+    align-items: center;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+header nav ul li {
+    margin: 0 20px;
+    margin-right: 90px;
+    padding-left: 30px;
+   font-weight: bold;
+}
+
+header nav ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hamburger Menu for Mobile */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    header nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: white;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        border-left: 1px solid black;
+    }
+
+    header nav.active ul {
+        display: flex;
+    }
+
+    header nav ul li {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .menu-icon{
+        display: block;
+        margin-left: 200px;
+    }
+}
+.navmain {
+    background-color: #ffffff;  /* White background */
+    color: black;  /* Black font color */
+    height: 80px;  /* Fixed height for navigation bar */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+header .navmain {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;  /* Align links to the right */
+    align-items: center;
+}
+
+header .logo img {
+    width: 80px;  /* Adjusted logo size */
+    height: auto; 
+    padding-left: 25px;
+    margin-top: 15px;
+}
+
+header .navmain ul {
+    list-style: none;
+    display: flex;
+}
+
+header .navmain ul li {
+    margin: 0 50px;
+    padding-left: 35px;
+   font-weight: bold;
+}
+
+header .navmain ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+header .navmain ul li a:hover {
+    text-decoration: underline;
+}
+header {
+    background-color: #f6f9fc;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.5s ease;
+}
+
+header:hover {
+    background-color: #003366; /* Darken the header on hover */
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ff6600; /* Add transition for smoother color change */
+}
+
+section {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease; /* Add transition for section appearance */
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    color: #004080;
+}
+
+.sector {
+    background-color: #e7eff6;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.5s ease; /* Add background transition */
+}
+
+.sector:hover {
+    background-color: #d4e2f0; /* Lighten on hover */
+}
+
+button {
+    background-color: #004080;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transitions for background and scaling */
+}
+
+button:hover {
+    background-color: #ff6600;
+    transform: scale(1.1); /* Slightly scale the button on hover */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    transition: background-color 0.5s ease;
+}
+
+footer a {
+    color: #ff6600;
+    transition: color 0.3s ease;
+}
+
+footer:hover {
+    background-color: #444; /* Darken footer background on hover */
+}
+
+footer a:hover {
+    color: #fff; /* Change link color on hover */
+}
+

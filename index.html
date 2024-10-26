@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxar-Like Front Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="assests/logo.png" alt="Maxar Logo">  <!-- Logo Added -->
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Maxar intelligence <i class="fa fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="map.html">Fetch the Data</a>
+                            <a href="map1.html">Weather comparion</a>
+                        </div>
+                    </li>
+                    <li><a href="service/index.html">Services
+                    </a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">About us <i class="fa fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about/aboutus.html">About Us</a>
+                        <a href="about/director.html">Director</a>
+                    </div>
+                </li>
+                    <li><a href="explore/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-text">
+            <h1>See the Earth Like Never Before</h1>
+            <p>Powering innovation with world-leading satellite imagery.</p>
+            <a href="explore/explore.html" class="btn">Explore Our Solutions </a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2>Our Core Services</h2>
+            <div class="service-boxes">
+                <div class="service">
+                    <h3>Satellite Imagery</h3>
+                    <p>Discover high-quality satellite images for industries ranging from defense to environmental research.</p>
+                </div>
+                <div class="service">
+                    <a href="explore/home/agri.html">Satellite Images in Agriculture</a>
+                    <p>Satellites can capture images of fields to monitor crop health over time.</p>
+                </div>
+                <div class="service">
+                    <h3>AI & Machine Learning</h3>
+                    <p>Leveraging AI for image recognition and data analysis to support decision making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MRSAC. All rights reserved. </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

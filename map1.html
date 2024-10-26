@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Comparison</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
+            color: #343a40;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 90vw; /* Responsive width */
+            height: 90vh; /* Responsive height */
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #00796b; /* Teal color */
+        }
+
+        #controls {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #controls input,
+        #controls select,
+        #controls button {
+            padding: 12px;
+            font-size: 14px;
+            border: 2px solid #00796b;
+            border-radius: 4px;
+            flex: 1;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        #controls input:focus,
+        #controls select:focus {
+            border-color: #004d40; /* Darker teal */
+            outline: none;
+        }
+
+        #controls button {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+        }
+
+        #controls button:hover {
+            background-color: #004d40; /* Darker teal on hover */
+            transform: scale(1.05); /* Slight scale effect */
+        }
+
+        #weatherChart {
+            width: 100% !important;
+            height: 400px !important;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive styling */
+        @media (max-width: 600px) {
+            #controls {
+                flex-direction: column; /* Stack controls on smaller screens */
+            }
+
+            #controls input,
+            #controls select,
+            #controls button {
+                margin: 10px 0; /* Space between stacked controls */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+        <h1>Weather Comparison</h1>
+        <div id="controls">
+            <input type="date" id="startDate" />
+            <select id="chartType">
+                <option value="line">Line Chart</option>
+                <option value="bar">Bar Chart</option>
+                <option value="radar">Radar Chart</option>
+                <option value="doughnut">Doughnut Chart</option>
+                <option value="polarArea">Polar Area Chart</option>
+            </select>
+            <button id="compare-btn">Compare Weather</button>
+        </div>
+        <canvas id="weatherChart"></canvas>
+    </div>
+
+    <script>
+        // Global variable to hold the chart instance
+        let weatherChart;
+
+        document.getElementById('compare-btn').addEventListener('click', function () {
+            var startDate = document.getElementById('startDate').value;
+
+            if (!startDate) {
+                alert('Please select a start date.');
+                return;
+            }
+
+            var lat = 51.505; // Example latitude
+            var lng = -0.09; // Example longitude
+            var days = 5; // Number of days to compare
+
+            // Fetch weather data for the specified date range
+            const promises = [];
+            for (let i = 0; i < days; i++) {
+                const date = new Date(startDate);
+                date.setDate(date.getDate() + i);
+                promises.push(fetchWeatherData(lat, lng, date.toISOString().split('T')[0]));
+            }
+
+            Promise.all(promises)
+                .then(data => {
+                    createChart(data, startDate);
+                })
+                .catch(error => {
+                    alert("Error fetching weather data: " + error);
+                });
+        });
+
+        function fetchWeatherData(lat, lng, date) {
+            var weatherAPI = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lng}&start_date=${date}&end_date=${date}&hourly=temperature_2m,precipitation`;
+
+            return fetch(weatherAPI)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.hourly && data.hourly.time) {
+                        return {
+                            temperature: data.hourly.temperature_2m,
+                            precipitation: data.hourly.precipitation,
+                            date: date
+                        };
+                    } else {
+                        throw new Error("No weather data available for the selected date.");
+                    }
+                });
+        }
+
+        function createChart(weatherData, startDate) {
+            const ctx = document.getElementById('weatherChart').getContext('2d');
+            const chartType = document.getElementById('chartType').value;
+
+            // Check if a chart already exists and destroy it if so
+            if (weatherChart) {
+                weatherChart.destroy();
+            }
+
+            // Prepare datasets and labels
+            const labels = weatherData[0].temperature.map((_, index) => index + 'h'); // X-axis: hours
+            const datasets = weatherData.map((data, index) => ({
+                label: `Temperature on ${new Date(data.date).toLocaleDateString()}`,
+                data: data.temperature,
+                borderColor: `rgba(${index * 60 + 100}, 99, 132, 1)`,
+                backgroundColor: `rgba(${index * 60 + 100}, 99, 132, 0.2)`,
+                fill: chartType === 'line', // Fill only for line charts
+                borderWidth: 1
+            }));
+
+            weatherChart = new Chart(ctx, {
+                type: chartType,
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Temperature (°C)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Hour of Day'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

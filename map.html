@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map with Weather Data</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #map {
+            flex: 1;
+        }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgb(221, 220, 235);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap; /* Allow wrapping of controls */
+        }
+        #toggle-controls {
+            position: absolute;
+            top: 10px;
+            left: 50px;
+            z-index: 1001;
+            background: rgb(192, 192, 209);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #search-input, #date-input {
+            padding: 5px;
+            font-size: 14px;
+        }
+        #search-btn, #weather-btn {
+            padding: 5px 10px;
+            font-size: 15px;
+            background-color: rgb(192, 192, 209);
+        }
+        .popup-content {
+            font-size: 15px;
+        }
+
+        /* Media query for responsiveness */
+        @media (max-width: 768px) {
+            #controls {
+                display: none; /* Hide controls initially on mobile */
+                flex-direction: column; /* Stack controls vertically */
+            }
+            #controls.active {
+                display: flex; /* Show controls when active */
+            }
+        }
+
+        @media (min-width: 769px) {
+            #controls {
+                flex-direction: row; /* Display controls in a row on larger screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="toggle-controls">Toggle Controls</button>
+    <div id="controls">
+        <select id="map-view">
+            <option value="osm">OpenStreetMap</option>
+            <option value="esri">Esri World Imagery</option>
+            <option value="carto">CartoDB Dark Matter</option>
+        </select>
+        <input type="text" id="search-input" placeholder="Search for a place" />
+        <button id="search-btn">Search</button>
+        <input type="date" id="date-input" min="2004-01-01" max="2024-12-31" value="2024-07-27" />
+        <button id="weather-btn">Get Weather</button>
+    </div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        // Add a tile layer (e.g., OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Initialize the FeatureGroup to store editable layers
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+
+        // Add the Leaflet Draw Control
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems
+            },
+            draw: {
+                polygon: false,
+                polyline: false,
+                circle: false,
+                circlemarker: true,
+                marker: true,
+                rectangle: true
+            }
+        });
+        map.addControl(drawControl);
+
+        // Event listener for when a new rectangle is created
+        map.on(L.Draw.Event.CREATED, function (event) {
+            var layer = event.layer;
+            drawnItems.addLayer(layer);
+
+            // Get the bounds of the rectangle
+            var bounds = layer.getBounds();
+
+            // Show details of the selected area
+            alert("Selected Area:\n" +
+                "Southwest: " + bounds.getSouthWest().toString() + "\n" +
+                "Northeast: " + bounds.getNorthEast().toString());
+        });
+
+        // Custom search functionality
+        var searchBtn = document.getElementById('search-btn');
+        var searchInput = document.getElementById('search-input');
+
+        searchBtn.addEventListener('click', function () {
+            var query = searchInput.value;
+            if (query) {
+                geocodeQuery(query);
+            }
+        });
+
+        function geocodeQuery(query) {
+            var geocodeService = L.Control.Geocoder.nominatim();
+            geocodeService.geocode(query, function (results) {
+                if (results.length === 0) {
+                    alert("Location not found.");
+                } else {
+                    var result = results[0];
+                    map.setView(result.center, 14);
+
+                    var marker = L.marker(result.center).addTo(map)
+                        .bindPopup("<strong>" + result.name + "</strong>")
+                        .openPopup();
+                }
+            });
+        }
+
+        // Weather data fetching
+        var weatherBtn = document.getElementById('weather-btn');
+        var dateInput = document.getElementById('date-input');
+
+        weatherBtn.addEventListener('click', function () {
+            var query = searchInput.value;
+            var selectedDate = dateInput.value;
+            if (query && selectedDate) {
+                geocodeQueryAndFetchWeather(query, selectedDate);
+            } else {
+                alert("Please enter a location and select a date.");
+            }
+        });
+
+        function geocodeQueryAndFetchWeather(query, selectedDate) {
+            var geocodeService = L.Control.Geocoder.nominatim();
+            geocodeService.geocode(query, function (results) {
+                if (results.length === 0) {
+                    alert("Location not found.");
+                } else {
+                    var result = results[0];
+                    map.setView(result.center, 14);
+
+                    // Fetch weather data for the selected location and date
+                    fetchWeatherData(result.center.lat, result.center.lng, selectedDate)
+                        .then(weatherData => {
+                            var marker = L.marker(result.center).addTo(map)
+                                .bindPopup(createWeatherPopupContent(result.name, weatherData, selectedDate))
+                                .openPopup();
+                        })
+                        .catch(error => {
+                            alert("Error fetching weather data: " + error);
+                        });
+                }
+            });
+        }
+
+        function fetchWeatherData(lat, lng, date) {
+            var weatherAPI = `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lng}&start_date=${date}&end_date=${date}&hourly=temperature_2m,precipitation,weathercode`;
+
+            return fetch(weatherAPI)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.hourly && data.hourly.time) {
+                        return {
+                            temperature: data.hourly.temperature_2m[12], // Noon temperature
+                            precipitation: data.hourly.precipitation[12],
+                            weatherCode: data.hourly.weathercode[12]
+                        };
+                    } else {
+                        throw new Error("No weather data available for the selected date.");
+                    }
+                });
+        }
+
+        function createWeatherPopupContent(locationName, weatherData, date) {
+            var weatherDescription = getWeatherDescription(weatherData.weatherCode);
+            return `
+                <div class="popup-content">
+                    <strong>${locationName}</strong><br>
+                    <strong>Date:</strong> ${date}<br>
+                    <strong>Temperature:</strong> ${weatherData.temperature} °C<br>
+                    <strong>Precipitation:</strong> ${weatherData.precipitation} mm<br>
+                    <strong>Weather:</strong> ${weatherDescription}
+                </div>
+            `;
+        }
+
+        function getWeatherDescription(weatherCode) {
+            var descriptions = {
+                0: "Clear sky",
+                1: "Mainly clear",
+                2: "Partly cloudy",
+                3: "Overcast",
+                45: "Fog",
+                48: "Depositing rime fog",
+                51: "Drizzle: Light",
+                53: "Drizzle: Moderate",
+                55: "Drizzle: Dense",
+                56: "Freezing Drizzle: Light",
+                 57: "Freezing Drizzle: Dense",
+                61: "Rain: Slight",
+                63: "Rain: Moderate",
+                65: "Rain: Heavy",
+                66: "Freezing Rain: Light",
+                67: "Freezing Rain: Heavy",
+                71: "Snow fall: Slight",
+                73: "Snow fall: Moderate",
+                75: "Snow fall: Heavy",
+                77: "Snow grains",
+                80: "Rain showers: Slight",
+                81: "Rain showers: Moderate",
+                82: "Rain showers: Violent",
+                85: "Snow showers slight",
+                86: "Snow showers heavy",
+                95: "Thunderstorm: Slight or moderate",
+                96: "Thunderstorm with slight hail",
+                99: "Thunderstorm with heavy hail"
+            };
+            return descriptions[weatherCode] || "Unknown weather condition";
+        }
+
+        // Toggle controls visibility
+        var toggleControlsBtn = document.getElementById('toggle-controls');
+        toggleControlsBtn.addEventListener('click', function () {
+            var controls = document.getElementById('controls');
+            controls.classList.toggle('active'); // Toggle the active class
+        });
+    </script>
+</body>
+</html>

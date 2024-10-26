@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapping Technology</title>
+    <style>
+        body  { 
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            background: url('services.png') center/cover no-repeat;
+        }
+
+    header {
+    background-color: #ffffff;  /* White background */
+    color: black;  /* Black font color */
+    height: 80px;  /* Fixed height for navigation bar */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Add padding for spacing */
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+
+}
+
+header .logo img {
+    width: 70px;  /* Adjusted logo size */
+    height: auto;
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;  /* Align links to the right */
+    align-items: center;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+header nav ul li {
+    margin: 0 20px;
+    margin-right: 90px;
+    padding-left: 30px;
+   font-weight: bold;
+}
+
+header nav ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Hamburger Menu for Mobile */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    header nav ul {
+        display: none;
+        flex-direction: column;
+        background-color: white;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        border-left: 1px solid black;
+    }
+
+    header nav.active ul {
+        display: flex;
+    }
+
+    header nav ul li {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .menu-icon{
+        display: block;
+        margin-left: 200px;
+    }
+}
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        main h2 {
+            color: #0077b6;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        main p {
+            font-size: 1.2em;
+            color: #333;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .info-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .info-section h3 {
+            color: #0077b6;
+            font-size: 1.8em;
+            margin-top: 30px;
+        }
+
+        .info-section p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .info-section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        /* Footer Section */
+footer {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+footer a {
+    color: #ff6600;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jpg" alt="Maxar Logo"> <!-- Logo -->
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="">Home</a></li>
+                <li><a href="#home">Maxar Intelligence</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#news">About us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </header>
+
+    <main>
+        <h2>What is Mapping Technology?</h2>
+        <p>Innovating mapping solutions to provide geospatial context for governments, industries, and public services.</p>
+        
+        <img src="geospatial-layers.jpg" alt="Geospatial Data Visualization">
+
+        <div class="info-section">
+            <h3>Applications of Mapping Technology</h3>
+            <p>The role of technology mapping is to make the actual gate choice to implement the logic netlis.</p>
+            
+            <ul>
+                <li><strong>Competitive intelligence</strong>: Market mapping uses competitive intelligence to understand the job market, including the number of candidates, their average salary, and the job-to-candidate ratio.</li>
+                <img src="envi.jpg" alt="Environmental Monitoring">
+
+                <li><strong>Remote sensing</strong>: Remote sensing provides precise location data that can be used for mapping, navigation, and tracking. </li>
+                <img src="devl.jpg" alt="Urban Planning">
+
+                <li><strong>Emergency management</strong>: GIS mapping technology can help emergency dispatchers quickly identify the fastest route to an emergency. </li>
+                <img src="agi.jpg" alt="Agriculture">
+            </ul>
+
+            <h3>Why is Mapping Technology Important?</h3>
+            <p> it helps us understand the world around us and make decisions</p>
+            <ul>
+                <li>Emergency maps are essential for planning, response, and recovery during emergencies. </li>
+                <li>Maps can help prioritize elements, define steps, and identify challenges in machine learning projects.</li>
+                <li>Mapping can help simplify complex data and geographic information, making it easier to interpret and understand. </li>
+                <li>Mapping can provide valuable information for research.</li>
+            </ul>
+        </div>
+
+    </main>
+    
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MRSAC. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
