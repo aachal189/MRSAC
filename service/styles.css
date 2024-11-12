@@ -9,8 +9,10 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     background: rgb(243, 245, 247);
-    background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
-    background: url('services.png') center/cover no-repeat;
+    background: linear-gradient(rgba(243, 239, 239, 0.8), rgba(182, 220, 236, 0.8)), 
+    url('big.jpg') no-repeat center center fixed;
+    background-size: cover;
+    animation: zoomBackground 4s ease-in infinite;
 }
 
 /* Header Section */
@@ -53,7 +55,7 @@ header nav ul li {
 }
 
 header nav ul li a {
-    color: black;
+    color: rgba(0, 0, 0, 0.918);
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
@@ -62,14 +64,12 @@ header nav ul li a {
 header nav ul li a:hover {
     text-decoration: underline;
 }
-
 /* Hamburger Menu for Mobile */
 .menu-icon {
     display: none;
     font-size: 28px;
     cursor: pointer;
 }
-
 /* Hide the nav links initially for mobile */
 @media (max-width: 768px) {
     header nav ul {
@@ -142,6 +142,17 @@ header nav ul li a:hover {
     display: block;
 }
 
+@keyframes zoomBackground {
+    0% {
+        background-size: 100%;
+    }
+    50% {
+        background-size: 110%;
+    }
+    100% {
+        background-size: 100%;
+    }
+}
 /* Footer */
 footer {
     background-color: #333;

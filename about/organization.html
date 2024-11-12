@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRSAC Organization Structure</title>
+    <link rel="stylesheet" href="organization.css">
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('show');
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="logo.jfif" alt="Maxar Logo"> <!-- Logo -->
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="">Home</a></li>
+                <li><a href="#home">Maxar Intelligence</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#news">About us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </header>
+
+    <main>
+        <section id="organization-structure">
+            <h2>Organization Structure</h2>
+            <div class="structure-tree">
+                <ul>
+                    <li>
+                        <strong>MRSAC</strong>
+                        <ul>
+                            <li class="name">Koltie, Incharge Director, M R S A C Head Office, Nagpur</li>
+                            <li class="name">
+                                <strong>Scientific/Technical</strong>
+                                <ul>
+                                    <li class="name">Senior Resources Scientist - Shri M D Kolte</li>
+                                    <li class="name">Resources Scientist - Dr. A N Shastry</li>
+                                    <li class="name">Associate Scientist
+                                        <ul>
+                                            <li>Mrs S S Dodtale</li>
+                                            <li>Shri V S Balmwar</li>
+                                            <li>Shri B S Nikam</li>
+                                            <li>Shri P S Bhalerao</li>
+                                            <li>Mrs S T Sengupta</li>
+                                            <li>Dr A S Deshpande</li>
+                                            <li>Shri P B Rajankar</li>
+                                            <li>Shri S S Yeram</li>
+                                            <li>Shri S M Muktarkar</li>
+                                        </ul>
+                                    </li>
+                                    <li class="name">Scientific Associate
+                                        <ul>
+                                            <li>Mrs Archana Kolhe</li>
+                                            <li>Dr V M Kale</li>
+                                            <li>Shri A H Akbare</li>
+                                            <li>Shri M R Kamble</li>
+                                            <li>Shri G S Rao</li>
+                                        </ul>
+                                    </li>
+                                    <li class="name">Technical Assistant
+                                        <ul>
+                                            <li>Shri R A Fulzele</li>
+                                            <li>Mrs Rashmi Bobade</li>
+                                        </ul>
+                                    </li>
+                                    <li class="name">Technician - Shri A D Ingle</li>
+                                </ul>
+                            </li>
+                            <li class="name">
+                                <strong>Administration</strong>
+                                <ul>
+                                    <li>Administrative Officer - Balkude</li>
+                                    <li>Accounts Officer - V. Supate</li>
+                                    <li>Executive Assistant - Miss A Iyer</li>
+                                    <li>Accountant - Kakade</li>
+                                    <li>Administrative Aide - Mrs K J Kinaske, Sontakke</li>
+                                    <li>Office Aide - Shri S R Jangade</li>
+                                </ul>
+                            </li>
+                            <li class="name">
+                                <strong>Mumbai Branch Office</strong>
+                                <ul>
+                                    <li>Scientific/Technical</li>
+                                    <li>Resources Scientist - Dodate, Head, Mumbai Branch</li>
+                                </ul>
+                            </li>
+                            <li class="name">
+                                <strong>Pune Branch Office</strong>
+                                <ul>
+                                    <li>Scientific/Technical</li>
+                                    <li>Resources Scientist - Dr. S A Patil (Head Pune Branch)</li>
+                                    <li>Administrative Aide - Shri Nishikant Chakole</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <div class="project">
+                <h2>Project Title</h2>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <span>Show Project Creator</span>
+                        <i class="arrow down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="creator-card">
+                            <img src="Snapchat-5607523.jpg" alt="Creator Image" class="creator-image">
+                            <div class="creator-info">
+                                <p><strong>Aachal Borkar</strong></p>
+                                <p>AI Final Year, GHRCEMN</p>
+                            </div>
+                            <img src="https://via.placeholder.com/150" alt="Creator Image" class="creator-image">
+                            <div class="creator-info">
+                                <p><strong>Moditi Sahare</strong></p>
+                                <p>AI Final Year, GHRCEMN</p>
+                            </div>
+                            <img src="Photo 2.jpeg" alt="Creator Image" class="creator-image">
+                            <div class="creator-info">
+                                <p><strong>Poonam Girde</strong></p>
+                                <p>AI Final Year, GHRCEMN</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>document.querySelector('.dropbtn').addEventListener('click', function() {
+                    const dropdownContent = document.querySelector('.dropdown-content');
+                    const arrow = document.querySelector('.arrow');
+                
+                    dropdownContent.classList.toggle('show');
+                    arrow.classList.toggle('down');
+                    arrow.classList.toggle('up');
+                });</script>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 MRSAC. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const names = document.querySelectorAll('.name');
+    
+            const revealOnScroll = () => {
+                names.forEach((name) => {
+                    const rect = name.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) {
+                        name.classList.add('visible');
+                    }
+                });
+            };
+    
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Initial check in case some names are already in view
+        });
+    </script>
+</body>
+</html>  

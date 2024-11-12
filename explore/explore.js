@@ -20,7 +20,7 @@ function changeImage() {
     }, 500); // Match with CSS transition duration
 }
 
-setInterval(changeImage, 5000); // Change every 5 seconds
+setInterval(changeImage, 3000); // Change every 5 seconds
 
 // Intersection Observer for Timeline Animation
 const timelineItems = document.querySelectorAll('.timeline-item');
